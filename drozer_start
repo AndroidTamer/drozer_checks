@@ -1,6 +1,13 @@
 #!/bin/bash
 echo "Waiting for atleast one device to connect"
 NM=""
+if [ $# -eq 1 -a $1 == "help" ]
+then
+	echo "Drozer Startup assistant"
+	echo "Usage $0 [console]"
+	echo "specify console if you want to get a drozer shell"
+	echo "no option would result is drozer setup which cn then be used by other commands"
+fi
 if [ $# -gt 1 -a $1 != "console" ]
 then
 	echo "Device Specific request recieved"
