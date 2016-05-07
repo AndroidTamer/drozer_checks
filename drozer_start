@@ -1,7 +1,17 @@
 #!/bin/bash
+echo "Waiting for atleast one device to connect"
+NM=""
+if [ $# -gt 1 -a $1 != "console" ]
+then
+	echo "Device Specific request recieved"
+	echo "Configuring ADB to send commands to device"
+	NM=$1
+	shift
+fi
 adb wait-for-devices
-adb shell am startservice -n com.mwr.dz/.services.ServerService -c
-com.mwr.dz.START_EMBEDDED
-adb forward tcp:31415 tcp:31415
-drozer console connect
-
+adb $NM shell am startservice -n com.mwr.dz/.services.ServerService -c com.mwr.dz.START_EMBEDDED
+adb $NM forward tcp:31415 tcp:31415
+if [ $1 == "console" ]
+then
+	drozer console connect
+fi
