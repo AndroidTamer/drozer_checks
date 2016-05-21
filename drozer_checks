@@ -1,6 +1,11 @@
 #!/bin/bash
 #TODO : check if drozer exist
 #TODO : Create a proper report out of it.
+if [ $# -eq 0 ]
+then
+    echo "Usage $0 <device_name> Package_name"
+    exit
+fi
 echo "Waiting for a Android Device to be attached"
 adb wait-for-devices
 NM=""
@@ -40,7 +45,7 @@ then
         #Check for readable files
         #$PRE_CMD "run scanner.misc.readablefiles /data/data/$name/ -p"
         #Suid/Sgid binary detection
-        $PRE_CMD run scanner.misc.sflagbinaries -t /data/data/$name
+        #$PRE_CMD run scanner.misc.sflagbinaries -t /data/data/$name
         # Lists all WebURL's used
         #$PRE_CMD "run scanner.misc.weburls -a $name"
         # List all writable files
